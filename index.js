@@ -6,6 +6,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const blogRouter = require("./controllers/blog");
 
+// connect
 const mongoUrl = process.env.MONGODB_URI;
 
 mongoose
