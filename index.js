@@ -1,29 +1,10 @@
+const app = require("./app");
 const http = require("http");
-const express = require("express");
-const app = express();
-require("dotenv").config();
-const cors = require("cors");
-const mongoose = require("mongoose");
-const blogRouter = require("./controllers/blog");
+const port = require("./utils/config").PORT;
+const logger = require("./utils/logger");
 
-// connect
-const mongoUrl = process.env.MONGODB_URI;
+const server = http.createServer(app);
 
-mongoose
-  .connect(mongoUrl)
-  .then((response) => {
-    console.log("MongoDB connection established");
-  })
-  .catch((error) => {
-    console.log(error);
-  });
-
-app.use(cors());
-app.use(express.json());
-
-app.use("/api/blogs", blogRouter);
-
-const PORT = process.env.PORT;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+server.listen(port, () => {
+  logger.info(`Server is running on port ${port}`);
 });
